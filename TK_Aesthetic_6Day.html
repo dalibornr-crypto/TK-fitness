@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="TK Aesthetic">
+<title>TK 6-Day Aesthetic</title>
+<style>
+:root{--gold:#C8A96E;--bg:#0a0a0a;--card:#111;--bd:#1e1e1e;--light:#e5e7eb;--dim:#9ca3af;--gray:#555;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:#fff;font-family:Georgia,serif;min-height:100vh;}
+body{padding-bottom:calc(70px + env(safe-area-inset-bottom));}
+.hdr{background:linear-gradient(135deg,#150f00,#0a0a0a);border-bottom:2px solid rgba(200,169,110,.18);padding:18px 14px 12px;text-align:center;position:sticky;top:0;z-index:20;}
+.hdr-sub{font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:2px;}
+.hdr-title{font-size:17px;font-weight:bold;margin-bottom:11px;}
+.tabs{display:flex;gap:6px;justify-content:center;}
+.tb{padding:7px 13px;border-radius:999px;font-size:12px;font-weight:bold;border:1.5px solid #2a2a2a;background:transparent;color:var(--gray);cursor:pointer;font-family:Georgia,serif;min-height:36px;}
+.tb.on{border-color:var(--gold);background:rgba(200,169,110,.12);color:var(--gold);}
+.pg{max-width:640px;margin:0 auto;padding:13px 12px;}
+.sec-lbl{font-size:9px;color:#444;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px;}
+.wk-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:12px;}
+.wk{padding:8px 3px;border-radius:9px;text-align:center;border:1.5px solid #1e1e1e;background:#0d0d0d;cursor:pointer;font-family:Georgia,serif;transition:all .15s;}
+.wk.on{border-color:var(--gold);background:#1a1400;}
+.wk-n{font-size:15px;font-weight:bold;color:#444;}
+.wk.on .wk-n{color:var(--gold);}
+.wk-dots{display:flex;justify-content:center;gap:2px;margin-top:4px;}
+.wdot{width:4px;height:4px;border-radius:50%;background:#1e1e1e;}
+.wdot.done{background:#555;}
+.wk.on .wdot.done{background:var(--gold);}
+.day-tabs{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap;}
+.dt{padding:9px 11px;border-radius:8px;font-size:12px;font-weight:bold;border:1.5px solid #1a1a1a;background:transparent;color:#2a2a2a;cursor:pointer;font-family:Georgia,serif;position:relative;min-height:44px;transition:all .15s;}
+.dt.done{border-color:#2a2a2a;color:#555;}
+.dt.on{border-color:var(--dc);color:var(--dc);}
+.dt-dot{position:absolute;top:2px;right:2px;width:5px;height:5px;border-radius:50%;}
+/* REPEAT BANNER */
+.repeat-banner{margin-bottom:12px;padding:10px 13px;border-radius:9px;display:flex;gap:10px;align-items:flex-start;}
+.rb-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.rb-title{font-size:11px;font-weight:bold;margin-bottom:3px;}
+.rb-text{font-size:11px;color:#666;line-height:1.5;}
+/* TARGET CHIP */
+.target-chip{margin-bottom:8px;padding:5px 10px;border-radius:6px;font-size:10px;display:flex;align-items:center;gap:6px;}
+/* DAY HEADER */
+.day-hdr{background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
+.dh-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+.dh-title{font-size:15px;font-weight:bold;}
+.dh-sub{font-size:10px;color:var(--gray);margin-top:2px;}
+.dh-btns{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+.tgl{padding:5px 9px;border-radius:5px;font-size:9px;font-weight:bold;cursor:pointer;font-family:Georgia,serif;min-height:30px;border:1px solid #2a2a2a;background:transparent;color:#444;}
+.tgl.on{border-color:rgba(200,169,110,.4);background:rgba(200,169,110,.08);color:var(--gold);}
+.tgl.prog.on{border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.08);color:#60a5fa;}
+.ex-list{background:var(--card);border-radius:12px;border:1px solid var(--bd);margin-bottom:12px;overflow:hidden;}
+.ex{padding:13px 14px;border-bottom:1px solid var(--bd);}
+.ex:last-child{border-bottom:none;}
+.ex-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.ex-info{flex:1;padding-right:8px;}
+.ex-name{font-size:13px;font-weight:bold;color:var(--light);}
+.ex-rx{font-size:10px;margin-top:2px;}
+.ex-note{font-size:10px;color:#555;margin-top:3px;font-style:italic;line-height:1.4;}
+.ex-badge{font-size:9px;border-radius:5px;padding:2px 7px;white-space:nowrap;flex-shrink:0;}
+.sets{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.sc{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.sr{font-size:9px;color:#333;background:#0d0d0d;border-radius:3px;padding:1px 5px;border:1px solid #1a1a1a;min-width:36px;text-align:center;}
+.si{width:52px;text-align:center;padding:8px 2px;background:#0d0d0d;border:1.5px solid #222;border-radius:7px;color:#2a2a2a;font-family:Georgia,serif;font-size:15px;font-weight:bold;outline:none;-webkit-appearance:none;}
+.si:focus,.si.v{color:var(--light);}
+.rpi{width:52px;text-align:center;padding:6px 2px;background:#0d0d0d;border:1.5px solid #1a1a1a;border-radius:7px;color:#2a2a2a;font-family:Georgia,serif;font-size:13px;font-weight:bold;outline:none;-webkit-appearance:none;border-style:dashed;}
+.rpi:focus,.rpi.v{color:var(--light);border-style:solid;}
+.sl{font-size:9px;color:#2a2a2a;}
+.prog-row{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;}
+.plbl{font-size:9px;color:#333;}
+.pc{font-size:9px;padding:2px 7px;border-radius:4px;background:#151515;border:1px solid #1e1e1e;color:#555;}
+.note{width:100%;min-height:52px;padding:10px 12px;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:10px;color:var(--light);font-family:Georgia,serif;font-size:13px;resize:vertical;outline:none;margin-bottom:10px;-webkit-appearance:none;}
+.save{width:100%;padding:15px;border-radius:12px;background:rgba(200,169,110,.08);border:1.5px solid var(--gold);color:var(--gold);font-family:Georgia,serif;font-size:14px;font-weight:bold;cursor:pointer;min-height:52px;transition:all .25s;}
+.save.ok{background:rgba(22,163,74,.12);border-color:#16a34a;color:#4ade80;}
+.ov-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+.ov-card{background:var(--card);border-radius:11px;border:1.5px solid #1e1e1e;padding:12px 13px;cursor:pointer;text-align:left;font-family:Georgia,serif;width:100%;transition:all .15s;}
+.ov-card.on{border-color:var(--gold);background:#1a1400;}
+.ov-top{display:flex;justify-content:space-between;margin-bottom:9px;align-items:center;}
+.ov-wnum{font-size:14px;font-weight:bold;color:var(--light);}
+.ov-card.on .ov-wnum{color:var(--gold);}
+.ov-done{font-size:10px;}
+.ov-bars{display:flex;gap:4px;}
+.ob{flex:1;}
+.ob-fill{height:5px;border-radius:3px;background:#1e1e1e;margin-bottom:3px;}
+.ob-d{font-size:7px;color:#2a2a2a;text-align:center;}
+.r-card{background:var(--card);border-radius:12px;border:1px solid var(--bd);overflow:hidden;margin-bottom:14px;}
+.ri{padding:12px 14px;display:flex;gap:11px;align-items:flex-start;border-bottom:1px solid var(--bd);}
+.ri:last-child{border-bottom:none;}
+.rn{width:22px;height:22px;border-radius:50%;flex-shrink:0;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--gold);font-weight:bold;}
+.rt{font-size:12px;color:var(--dim);line-height:1.6;}
+.info-box{background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(200,169,110,.12);padding:13px 14px;}
+.ib-title{font-size:10px;color:var(--gold);margin-bottom:5px;}
+.ib-text{font-size:11px;color:#555;line-height:1.7;}
+.struct-legend{background:var(--card);border-radius:10px;border:1px solid var(--bd);padding:12px 14px;margin-top:14px;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ── DATA ──────────────────────────────────────────────────
+const CS=[
+ {id:'cs1',name:'Incline DB Bench',rx:'7 sérií — rebrík hore aj dole',ref:['36','45','50','54','54','45','36'],n:7,note:'TK: 36→45→50→54→54→45→36 kg. Váha = 1 činka.'},
+ {id:'cs2',name:'Incline Smith Machine Bench',rx:'3 ťažké série',ref:['','',''],n:3,note:'Ťažké stabilné lisovanie. Plný rozsah pohybu.'},
+ {id:'cs3',name:'Cable / Pec Deck Fly',rx:'4 série × 10–15 opak.',ref:['','','',''],n:4,note:'Stretch v spodnej polohe, kontrakcia hore.'},
+ {id:'cs4',name:'Lateral Raise Machine',rx:'4 série — stupňuj záťaž',ref:['','','',''],n:4,note:'Vlni nahor v záťaži naprieč sériami.'},
+ {id:'cs5',name:'DB Lateral Raise (drop series)',rx:'5 sérií: 14→11→9→7→5 kg',ref:['14','11','9','7','5'],n:5,note:'TK štýl — každé číslo = jedna séria.'},
+ {id:'cs6',name:'Rear Delt Fly',rx:'3 série — striktné opakovania',ref:['','',''],n:3,note:'Bez šúpania trupom.'},
+ {id:'cs7',name:'Rear Delt Archer Pull',rx:'3 série — kontrolované',ref:['','',''],n:3,note:'Pomalé a kontrolované.'},
+ {id:'cs8',name:'Cable Crunches',rx:'6 sérií — stredná záťaž',ref:['','','','','',''],n:6,note:'Tvrdá flexia.'},
+ {id:'cs9',name:'Hanging Leg Raises',rx:'3 série × 10 opak.',ref:['—','—','—'],n:3,note:'Žiadne hojdanie.'},
+ {id:'cs10',name:'Side Cable Crunch',rx:'3 série / strana',ref:['','',''],n:3,note:'Každá strana zvlášť.'},
+];
+const BA=[
+ {id:'ba1',name:'Pull Ups',rx:'2 rozcvičovacie série',ref:['—','—'],n:2,note:'Vlastná váha, takmer do zlyhania.'},
+ {id:'ba2',name:'Single Arm Pulldown',rx:'2 ťažké série',ref:['102','102'],n:2,note:'TK ref: 102 kg.'},
+ {id:'ba3',name:'Regular Pulldown',rx:'3 ťažké série',ref:['','',''],n:3,note:'Ťažký vertikálny ťah, hrudník hore.'},
+ {id:'ba4',name:'Seated Cable Row',rx:'4 série — stupňuj naprieč sériami',ref:['','','',''],n:4,note:'Každá séria ťažšia ako predošlá.'},
+ {id:'ba5',name:'Overhead Tricep Extension',rx:'4 série — rampuj záťaž',ref:['','','',''],n:4,note:'Plný rozsah pohybu v lakti.'},
+ {id:'ba6',name:'Tricep Pressdown',rx:'4 série — ťažký záver',ref:['','','',''],n:4,note:'Tvrdá kontrakcia dole.'},
+ {id:'ba7',name:'Barbell Curl',rx:'4 série — striktné ťažké opakovania',ref:['','','',''],n:4,note:'Bez šúpania, ťažká záťaž.'},
+ {id:'ba8',name:'Supinating DB Curl',rx:'4 série',ref:['16','18','20','20'],n:4,note:'TK: 16–20 kg. Supinuj v hornej polohe.'},
+ {id:'ba9',name:'Cable Crunches',rx:'6 sérií',ref:['','','','','',''],n:6,note:'Drž trup pritiahnutý.'},
+ {id:'ba10',name:'Hanging Leg Raises',rx:'3 série — kontrolované',ref:['—','—','—'],n:3,note:'Bez šúpania.'},
+ {id:'ba11',name:'Side Cable Crunch',rx:'3 série / strana',ref:['','',''],n:3,note:'Dofiniš šikmé svaly.'},
+];
+const LG=[
+ {id:'lg1',name:'Leg Press alebo Pendulum Squat',rx:'4 pracovné série',ref:['','','',''],n:4,note:'Vyber jeden vzorec. Drž ho min. 4 týždne.'},
+ {id:'lg2',name:'Hack Squat',rx:'3 série — hlboko a kontrolovane',ref:['','',''],n:3,note:'Plná hĺbka, kontrolovaný zostup.'},
+ {id:'lg3',name:'Hip Thrust alebo RDL',rx:'4 série',ref:['','','',''],n:4,note:'Podľa stavu dolného chrbta.'},
+ {id:'lg4',name:'Leg Curl',rx:'3 série — kontrolované',ref:['','',''],n:3,note:'Pomalé spúšťanie dole.'},
+ {id:'lg5',name:'Leg Extension',rx:'3 série — kontrakcia v peaku',ref:['','',''],n:3,note:'Tvrdá kontrakcia hore, 1 sec podržanie.'},
+ {id:'lg6',name:'Calf Raise',rx:'4 série — plný rozsah',ref:['','','',''],n:4,note:'Plný stretch dole pri každom opakovaní.'},
+];
+
+const DAYS=[
+ {key:'mon',name:'Pondelok',sh:'Po',focus:'Chest & Shoulders + Abs',dc:'#f97316',tpl:'cs',pair:null,exercises:CS},
+ {key:'tue',name:'Utorok',sh:'Ut',focus:'Back & Arms + Abs',dc:'#a78bfa',tpl:'ba',pair:null,exercises:BA},
+ {key:'wed',name:'Streda',sh:'St',focus:'Legs + LISS',dc:'#34d399',tpl:'lg',pair:null,exercises:LG},
+ {key:'thu',name:'Štvrtok',sh:'Št',focus:'Chest & Shoulders',dc:'#f97316',tpl:'cs',pair:'mon',
+  pairName:'Pondelok',repeatNote:'Opakuj štruktúru Pondelka — snaž sa prekonať váhu, opakovania alebo techniku. Ak je recovery slabá, zníž o 1 sériu.',exercises:CS},
+ {key:'fri',name:'Piatok',sh:'Pi',focus:'Back & Arms',dc:'#a78bfa',tpl:'ba',pair:'tue',
+  pairName:'Utorok',repeatNote:'Opakuj štruktúru Utorka — prekonej aspoň jednu premennú. Ak bolia lakte alebo kríže, zredukuj objem.',exercises:BA},
+ {key:'sat',name:'Sobota',sh:'So',focus:'Legs + LISS',dc:'#34d399',tpl:'lg',pair:'wed',
+  pairName:'Streda',repeatNote:'Opakuj štruktúru Stredy — drž rovnaké cviky min. 4 týždne pre čistý signál progresu.',exercises:LG},
+];
+const WEEKS=Array.from({length:12},(_,i)=>i+1);
+const RULES=[
+ 'Vyššia frekvencia funguje len keď sa zotavuješ — spánok a jedlo musia zodpovedať záťaži.',
+ 'Drž zoznam cvikov stabilný dostatočne dlho — len tak vzniká reálny progres.',
+ 'Ak sa hromadí únava v lakťoch, ramenách alebo krížoch — zruš 1 doplnkový cvik pred zmenou celého plánu.',
+ 'Malé úpravy, nie emocionálne zmeny.',
+];
+
+// ── STATE ─────────────────────────────────────────────────
+let S={tab:'log',week:1,day:'mon',ref:true,prog:false};
+let DB=JSON.parse(localStorage.getItem('tk-aesthetic-v2')||'{}');
+
+const sk=(w,d)=>`w${w}_${d}`;
+const getSess=(w,d)=>DB[sk(w,d)]||{weights:{},note:''};
+const getW=(w,d,id,si)=>((getSess(w,d).weights[id]||[])[si]||'');
+const getR=(w,d,id,si)=>((getSess(w,d).reps?.[id]||[])[si]||'');
+const curDay=()=>DAYS.find(d=>d.key===S.day)||DAYS[0];
+
+function dayDone(wn,dk){
+ const s=DB[sk(wn,dk)];
+ return s&&Object.values(s.weights||{}).some(a=>a.some(v=>v&&v.trim()));
+}
+function weekDone(wn){return DAYS.filter(d=>dayDone(wn,d.key)).length;}
+
+function exMaxPrev(exId,tpl){
+ const res=[];
+ WEEKS.forEach(w=>{
+  DAYS.filter(d=>d.tpl===tpl).forEach(d=>{
+   const s=DB[sk(w,d.key)];
+   const arr=(s?.weights?.[exId]||[]).filter(v=>v&&v.trim()&&v!=='—');
+   const nums=arr.map(Number).filter(n=>!isNaN(n)&&n>0);
+   if(nums.length) res.push({w,sh:d.sh,max:Math.max(...nums)});
+  });
+ });
+ return res;
+}
+function pairMax(exId,pairKey){
+ if(!pairKey) return null;
+ const s=DB[sk(S.week,pairKey)];
+ const arr=(s?.weights?.[exId]||[]).filter(v=>v&&v.trim()&&v!=='—');
+ const nums=arr.map(Number).filter(n=>!isNaN(n)&&n>0);
+ return nums.length?Math.max(...nums):null;
+}
+
+// ── SYNC ─────────────────────────────────────────────────
+function syncInputs(){
+ const key=sk(S.week,S.day);
+ if(!DB[key]) DB[key]={weights:{},reps:{},note:''};
+ if(!DB[key].reps) DB[key].reps={};
+ document.querySelectorAll('.si').forEach(inp=>{
+  const {eid,si}=inp.dataset;
+  if(!DB[key].weights[eid]) DB[key].weights[eid]=[];
+  DB[key].weights[eid][+si]=inp.value;
+ });
+ document.querySelectorAll('.rpi').forEach(inp=>{
+  const {eid,si}=inp.dataset;
+  if(!DB[key].reps[eid]) DB[key].reps[eid]=[];
+  DB[key].reps[eid][+si]=inp.value;
+ });
+ const n=document.querySelector('.note');
+ if(n) DB[key].note=n.value;
+}
+function persist(){localStorage.setItem('tk-aesthetic-v2',JSON.stringify(DB));}
+
+// ── RENDER ────────────────────────────────────────────────
+function r(){
+ const d=curDay();
+ document.getElementById('app').innerHTML=
+  renderHdr()+
+  (S.tab==='log'?renderLog(d):'')+
+  (S.tab==='ov'?renderOv():'')+
+  (S.tab==='rules'?renderRules():'');
+ colorize();
+}
+
+function renderHdr(){
+ return `<div class="hdr">
+  <div class="hdr-sub">Thomas Keal · @thomas_keal</div>
+  <div class="hdr-title">6-Day Aesthetic Volume Split</div>
+  <div class="tabs">
+   <button class="tb${S.tab==='log'?' on':''}" onclick="nav('tab','log')">🏋️ Tréning</button>
+   <button class="tb${S.tab==='ov'?' on':''}" onclick="nav('tab','ov')">📊 Prehľad</button>
+   <button class="tb${S.tab==='rules'?' on':''}" onclick="nav('tab','rules')">📋 Pravidlá</button>
+  </div>
+ </div>`;
+}
+
+function renderLog(d){
+ // week grid
+ let wg='<div class="wk-grid">';
+ WEEKS.forEach(w=>{
+  wg+=`<button class="wk${S.week===w?' on':''}" onclick="nav('week',${w})">
+   <div class="wk-n">${w}</div>
+   <div class="wk-dots">${DAYS.map(dy=>`<div class="wdot${dayDone(w,dy.key)?' done':''}"></div>`).join('')}</div>
+  </button>`;
+ });
+ wg+='</div>';
+
+ // day tabs
+ let dt='<div class="day-tabs">';
+ DAYS.forEach(dy=>{
+  const done=dayDone(S.week,dy.key);
+  const on=S.day===dy.key;
+  dt+=`<button class="dt${done?' done':''}${on?' on':''}" style="--dc:${dy.dc}" onclick="nav('day','${dy.key}')">
+   ${dy.sh}${done&&!on?`<div class="dt-dot" style="background:${dy.dc}"></div>`:''}
+  </button>`;
+ });
+ dt+='</div>';
+
+ // repeat banner
+ let banner='';
+ if(d.pair){
+  banner=`<div class="repeat-banner" style="background:${d.dc}0d;border:1px solid ${d.dc}44">
+   <div class="rb-icon">🔁</div>
+   <div>
+    <div class="rb-title" style="color:${d.dc}">Prekonej ${d.pairName}</div>
+    <div class="rb-text">${d.repeatNote}</div>
+   </div>
+  </div>`;
+ }
+
+ // exercises
+ let exs='<div class="ex-list">';
+ d.exercises.forEach(ex=>{
+  const prog=S.prog?exMaxPrev(ex.id,d.tpl):[];
+  const pair=S.prog?pairMax(ex.id,d.pair):null;
+  let targetHtml='';
+  if(pair){
+   targetHtml=`<div class="target-chip" style="background:${d.dc}0d;border:1px solid ${d.dc}44;color:${d.dc}">
+    🎯 Cieľ prekonať ${d.pairName} W${S.week}: <strong>${pair} kg</strong>
+   </div>`;
+  }
+  let sets='<div class="sets">';
+  for(let si=0;si<ex.n;si++){
+   const refW=S.ref?(ex.ref[si]||ex.ref[0]||''):'';
+   const isSpec=!refW||refW==='—';
+   const val=getW(S.week,S.day,ex.id,si);
+   const rval=getR(S.week,S.day,ex.id,si);
+   sets+=`<div class="sc">
+    <div class="sr">${isSpec?'—':refW+'kg'}</div>
+    <input class="si${val?' v':''}" type="text" inputmode="decimal" data-eid="${ex.id}" data-si="${si}" value="${val}" placeholder="${isSpec?'—':refW}" style="border-color:${val?d.dc:'#222'}">
+    <input class="rpi${rval?' v':''}" type="text" inputmode="numeric" data-eid="${ex.id}" data-si="${si}" value="${rval}" placeholder="rep" style="border-color:${rval?d.dc+'99':'#1a1a1a'}">
+    <div class="sl">S${si+1}</div>
+   </div>`;
+  }
+  sets+='</div>';
+  let progHtml='';
+  if(S.prog&&prog.length){
+   progHtml=`<div class="prog-row"><span class="plbl">Max:</span>${prog.map(p=>{
+    const isCur=p.w===S.week&&p.sh===d.sh;
+    return `<span class="pc${isCur?' cur':''}" style="${isCur?'color:'+d.dc+';border-color:'+d.dc+'33;background:'+d.dc+'18':''}">W${p.w} ${p.sh}: ${p.max}kg</span>`;
+   }).join('')}</div>`;
+  }
+  exs+=`<div class="ex">
+   <div class="ex-top">
+    <div class="ex-info">
+     <div class="ex-name">${ex.name}</div>
+     <div class="ex-rx" style="color:${d.dc}">${ex.rx}</div>
+     ${ex.note?`<div class="ex-note">${ex.note}</div>`:''}
+    </div>
+    <div class="ex-badge" style="color:${d.dc};background:${d.dc}18;border:1px solid ${d.dc}33">${ex.n} sér.</div>
+   </div>
+   ${targetHtml}${sets}${progHtml}
+  </div>`;
+ });
+ exs+='</div>';
+
+ const sess=getSess(S.week,S.day);
+ return `<div class="pg">
+  <div class="sec-lbl">Týždeň</div>
+  ${wg}${dt}${banner}
+  <div class="day-hdr" style="border:1px solid ${d.dc}44">
+   <div>
+    <div class="dh-lbl" style="color:${d.dc}">Týždeň ${S.week} · ${d.name}</div>
+    <div class="dh-title">${d.focus}</div>
+    <div class="dh-sub">${d.exercises.length} cvikov</div>
+   </div>
+   <div class="dh-btns">
+    <button class="tgl${S.ref?' on':''}" onclick="tog('ref')">TK ref ${S.ref?'✓':'○'}</button>
+    <button class="tgl prog${S.prog?' on':''}" onclick="tog('prog')">Progres ${S.prog?'✓':'○'}</button>
+   </div>
+  </div>
+  ${exs}
+  <textarea class="note" placeholder="Poznámka k tréningu...">${sess.note||''}</textarea>
+  <button class="save" id="savebtn" onclick="saveSession()">💾 Uložiť — Týždeň ${S.week} · ${d.name}</button>
+ </div>`;
+}
+
+function renderOv(){
+ let cards='<div class="ov-grid">';
+ WEEKS.forEach(w=>{
+  const done=weekDone(w);
+  const on=S.week===w;
+  cards+=`<button class="ov-card${on?' on':''}" onclick="navMulti('week',${w},'tab','log')">
+   <div class="ov-top">
+    <span class="ov-wnum">Týždeň ${w}</span>
+    <span class="ov-done" style="color:${done===6?'#4ade80':done>0?'#C8A96E':'#333'}">${done}/6 dní</span>
+   </div>
+   <div class="ov-bars">${DAYS.map(d=>{
+    const has=dayDone(w,d.key);
+    return `<div class="ob">
+     <div class="ob-fill" style="${has?'background:'+d.dc:''}"></div>
+     <div class="ob-d" style="${has?'color:'+d.dc:''}">${d.sh}</div>
+    </div>`;
+   }).join('')}</div>
+  </button>`;
+ });
+ cards+='</div>';
+ return `<div class="pg">
+  ${cards}
+  <div class="struct-legend">
+   <div class="sec-lbl" style="margin-bottom:10px">Štruktúra týždňa</div>
+   ${DAYS.map(d=>`<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+    <div style="width:26px;font-size:10px;font-weight:bold;color:${d.dc};background:${d.dc}18;border-radius:4px;padding:2px 4px;text-align:center;flex-shrink:0">${d.sh}</div>
+    <div style="font-size:11px;color:var(--dim)">${d.focus}</div>
+    ${d.pair?`<div style="font-size:9px;color:#444;margin-left:auto">↩</div>`:''}
+   </div>`).join('')}
+   <div style="margin-top:8px;padding:8px 10px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid #1e1e1e;font-size:10px;color:#555">🔁 Štvrtok = Pondelok · Piatok = Utorok · Sobota = Streda</div>
+  </div>
+ </div>`;
+}
+
+function renderRules(){
+ let rules='<div class="r-card">';
+ RULES.forEach((r,i)=>{
+  rules+=`<div class="ri"><div class="rn">${i+1}</div><div class="rt">${r}</div></div>`;
+ });
+ rules+='</div>';
+ return `<div class="pg">
+  <div class="sec-lbl">Progresné pravidlá</div>${rules}
+  <div class="r-card">
+   <div class="ri"><div class="rn" style="color:#34d399;background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.3)">🏃</div>
+   <div><div style="font-size:12px;font-weight:bold;color:#34d399">LISS Kardio</div>
+   <div style="font-size:11px;color:var(--dim);margin-top:3px">Pridaj 20–30 min na dni s nohami (St, So) ak sa leanujete. Nepovinné.</div></div></div>
+  </div>
+  <div class="info-box"><div class="ib-title">📌 Poznámka k TK referenčným váham</div><div class="ib-text">Referenčné váhy sú z Thomasových vlastných tréningov. Slúžia ako štrukturálna pomôcka. Nauč sa zodpovedajúce úsilie a postupuj od svojej súčasnej úrovne.</div></div>
+ </div>`;
+}
+
+// ── EVENTS ────────────────────────────────────────────────
+function nav(key,val){syncInputs();S[key]=val;r();}
+function navMulti(k1,v1,k2,v2){syncInputs();S[k1]=v1;S[k2]=v2;r();}
+function tog(key){S[key]=!S[key];r();}
+function saveSession(){
+ syncInputs();
+ const key=sk(S.week,S.day);
+ if(!DB[key]) DB[key]={weights:{},note:''};
+ DB[key].savedAt=new Date().toISOString().slice(0,10);
+ persist();
+ const btn=document.getElementById('savebtn');
+ if(btn){btn.className='save ok';btn.textContent='✓ Uložené!';}
+ setTimeout(r,2000);
+}
+function colorize(){
+ document.querySelectorAll('.si').forEach(inp=>{
+  inp.addEventListener('input',function(){
+   const dc=curDay().dc;
+   this.style.borderColor=this.value?dc:'#222';
+   this.classList.toggle('v',!!this.value);
+  });
+ });
+ document.querySelectorAll('.rpi').forEach(inp=>{
+  inp.addEventListener('input',function(){
+   const dc=curDay().dc;
+   this.style.borderColor=this.value?dc+'99':'#1a1a1a';
+   this.classList.toggle('v',!!this.value);
+  });
+ });
+}
+
+r();
+</script>
+</body>
+</html>
